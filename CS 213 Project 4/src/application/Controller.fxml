@@ -1,7 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
-	<!-- TODO Add Nodes -->
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="700.0" maxWidth="700.0" minHeight="700.0" minWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+   <top>
+      <HBox prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Sandwich Type" translateX="30.0" translateY="20.0" />
+            <ComboBox fx:id="sandwichCombo" onAction="#sandwichSelected" prefWidth="150.0" translateX="-50.0" translateY="50.0" value="Chicken">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Chicken" />
+          <String fx:value="Beef" />
+          <String fx:value="Fish" />
+        </FXCollections>
+      </items>
+      
+    </ComboBox>
+            <Label text="Ingredients Included" translateX="50.0" translateY="20.0" />
+            <ListView fx:id="ingredientsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" translateX="-100.0" translateY="50.0" />
+            <ImageView fx:id="sandwichImage" fitHeight="110.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" translateX="-50.0" translateY="20.0">
+               <image>
+                  <Image url="@../../Chicken.png" />
+               </image></ImageView>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="300.0">
+               <children>
+                  <Label text="Ingredient Selections" translateX="50.0" />
+                  <ListView fx:id="extraIngredientsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" translateX="10.0">
+               
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </ListView>
+               </children>
+            </VBox>
+            <VBox prefHeight="395.0" prefWidth="140.0">
+               <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addSelectedIngredientToListView" text="Add&gt;&gt;&gt;" translateY="180.0" />
+                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeSelectedIngredientToListView" text="&lt;&lt;&lt;Remove" translateY="200.0" />
+                  <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearSelectedIngredientToListView" text="Clear Selected" translateY="220.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="395.0" prefWidth="146.0">
+               <children>
+                  <Label text="Extra Ingredients" />
+                  <ListView fx:id="selectedIngredientsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="128.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="395.0" prefWidth="154.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="56.0" text="Price $" translateY="200.0" />
+                  <TextField fx:id="priceText" editable="false" translateY="200.0" />
+                  <Button fx:id="addToOrderButton" mnemonicParsing="false" onAction="#addToOrder" text="Add to Order" translateY="250.0" />
+                  <Button fx:id="showOrderButton" mnemonicParsing="false" text="Show Order" translateY="270.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets right="20.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <TextArea fx:id="messageTextArea" editable="false" prefHeight="120.0" prefWidth="680.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
