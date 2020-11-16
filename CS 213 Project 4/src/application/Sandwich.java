@@ -10,27 +10,44 @@ public abstract class Sandwich implements Customizable {
 
 	public Sandwich() {
 		// TODO Auto-generated constructor stub
+		this.extras = new ArrayList<Extra>(MAX_EXTRAS);
+		
 	}
 
 	
 	public String toString() {
-		String string = "Sandwich: ";
-		for(int i =0; i < extras.size() ; i++) {
-			string += extras.get(i) + " ";
-		}
-		string += "\n";
+		String string = "Sandwich: " + this.extras.toString() + "\n";
+		
 
-		return null; }
+		return string; }
+	
+	public String getSandwichType() {
+		return "Sandwich";
+	}
 	
 	@Override
 	public boolean add(Object obj) {
+		if (!(obj instanceof Extra)) {
+			return false;
+		}
+		Extra extra = (Extra) obj;
+		this.extras.add(extra);
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean remove(Object obj) {
 		// TODO Auto-generated method stub
+		if (!(obj instanceof Extra)) {
+			return false;
+		}
+		Extra extra = (Extra) obj;
+		if(this.extras.contains(extra)) {
+			this.extras.remove(extra);
+			// TODO Auto-generated method stub
+			return true;
+		}
 		return false;
 	}
 

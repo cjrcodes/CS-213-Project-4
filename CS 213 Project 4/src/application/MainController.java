@@ -3,6 +3,7 @@ package application;
 //import com.sun.tools.javac.util.StringUtils;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,6 +18,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -37,7 +41,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
-
+import javafx.scene.Node;
 
 public class MainController {
 	
@@ -82,13 +86,27 @@ public class MainController {
 	TextArea messageTextArea;
 	
 	@FXML
+	private Scene secondScene;
+	
+	/*controller2.setView1Controller(this);
+	controller2.otherMethod();
+	
+	MainController passMainController() {
+		return this;
+	}*/
+	
+	@FXML
 	void initialize() {
 		//Image fishImage = new Image("file: Chicken.png");
+		//System.out.println("Main controller running");
 		String [] chickenIngredients = {"Fried Chicken", "Spicy Sauce", "Pickles"};
 		ingredientsToListView(chickenIngredients);
 		price = 8.99;
 		numOfIngredientsSelected = 0;
-		
+		if(order == null) {
+			order = new Order();
+
+		}
 		setSandwichPrice();
 		extraIngredientsToListView();
 		extraIngredientsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -112,6 +130,37 @@ public class MainController {
 			return;
 		}
 		
+		
+	}
+	
+	@FXML
+	void showOrder(ActionEvent actionEvent) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ControllerTwo.fxml"));
+			Parent root = loader.load();
+			
+			
+			SecondController controller2 = loader.getController();
+			
+			//controller2.setView1Controller(this);
+			//controller2.getOrderDetails(order);
+			
+			//Stage stage = new Stage();
+	        /*stage.setScene(new Scene(root));
+	        stage.setTitle("Order Detials");
+	        stage.show();*/
+			
+			Scene scene2 = new Scene(root);
+			
+			Stage primaryStage = (Stage)(((Node)actionEvent.getSource()).getScene().getWindow());
+		
+	        primaryStage.setScene(scene2);
+	        primaryStage.show();
+	        }
+		catch (Exception e) {
+			messageTextArea.appendText("Error occurred showing order\n");
+			return;
+		}
 		
 	}
 	
@@ -192,7 +241,7 @@ public class MainController {
 			else {
 			extraIngredientsList.setDisable(false);
 			
-			messageTextArea.appendText(selectedIngredient + "\n");
+			//messageTextArea.appendText(selectedIngredient + "\n");
 			
 				for(String i : selectedIngredient) {
 					updateSandwichPrice(false);
@@ -236,7 +285,7 @@ public class MainController {
 			else {
 			extraIngredientsList.setDisable(false);
 			
-			messageTextArea.appendText(selectedIngredient + "\n");
+			//messageTextArea.appendText(selectedIngredient + "\n");
 			
 				for(String i : selectedIngredient) {
 					
@@ -246,7 +295,7 @@ public class MainController {
 					selectedIngredientsList.getItems().remove(i);
 					extraIngredientsList.getItems().add(i);
 
-					messageTextArea.appendText(i + " removed\n");
+					//messageTextArea.appendText(i + " removed\n");
 				}
 				
 				return;
@@ -354,11 +403,11 @@ public class MainController {
 			String selected = (String) sandwichCombo.getSelectionModel().getSelectedItem();
 			//messageTextArea.appendText(selected + " Selected\n");
 			Sandwich sandwich;
-			String priceString = String.format("%.2f",priceText.getText());
-			Double totalPrice = Double.parseDouble(priceString);
+			Double totalPrice = Double.parseDouble(priceText.getText());
 			ObservableList<String> selectedIngredient = FXCollections.observableArrayList(selectedIngredientsList.getItems());
-			selectedIngredient.toArray();
-			
+			//messageTextArea.appendText(totalPrice + "\n");
+			//messageTextArea.appendText(selectedIngredient + "\n");
+
 			
 			
 			if(selected.equals("Chicken")) {
@@ -374,8 +423,28 @@ public class MainController {
 				sandwich = new Fish();
 
 			}
-			messageTextArea.appendText("Order added\n");
+			
+			for(String i : selectedIngredient) {
+				Extra extra = new Extra(i);
+				//messageTextArea.appendText(i + "\n");
+				sandwich.extras.add(extra);
+				//messageTextArea.appendText( extra.toString() + " added to " + sandwich.getSandwichType() + "\n");
 
+			}
+			
+			OrderLine orderLine = new OrderLine(order.addLineNumber(), sandwich, totalPrice);
+			order.add(orderLine);
+			
+			
+			messageTextArea.appendText(sandwich.toString() + "\n");
+
+			messageTextArea.appendText("Order added\n\n");
+			
+			
+			//sandwichCombo.setSelectedItem("Chicken");
+			sandwichCombo.setValue((String)"Chicken");
+			clearSelectedIngredientToListView(actionEvent);
+	
 		}
 	
 		catch (Exception e) {
@@ -437,5 +506,20 @@ public class MainController {
 		}
 		
 	}
+
+	public void setSecondScene(Scene scene) {
+		// TODO Auto-generated method stub
+        secondScene = scene;
+
+		
+	}
+	
+	@FXML
+	void openSecondScene(ActionEvent actionEvent) {
+        Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene s = secondScene;
+        primaryStage.setScene(s);
+        primaryStage.show();
+    }
 	
 }

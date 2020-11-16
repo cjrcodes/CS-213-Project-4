@@ -74,7 +74,7 @@
                   <Label prefHeight="17.0" prefWidth="56.0" text="Price $" translateY="200.0" />
                   <TextField fx:id="priceText" editable="false" translateY="200.0" />
                   <Button fx:id="addToOrderButton" mnemonicParsing="false" onAction="#addToOrder" text="Add to Order" translateY="250.0" />
-                  <Button fx:id="showOrderButton" mnemonicParsing="false" text="Show Order" translateY="270.0" />
+                  <Button fx:id="showOrderButton" mnemonicParsing="false" onAction="#showOrder" text="Show Order" translateY="270.0" />
                </children>
                <opaqueInsets>
                   <Insets right="20.0" />

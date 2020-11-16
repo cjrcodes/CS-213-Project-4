@@ -22,4 +22,26 @@ public class OrderLine {
 		this.price = price;
 	}
 	
+	public String toString() {
+		return this.lineNumber + " " + this.sandwich.toString();
+	}
+	
+	public Double getPrice() {
+		return this.price;
+	}
+	
+	public void setLineNumber(int lineNumber) {
+		this.lineNumber = lineNumber;
+	}
+	
+	public int getLineNumber() {
+		return this.lineNumber;
+	}
+	
+	public Sandwich getSandwich() {
+		return this.sandwich;
+	}
+	
+	
+	
 }

@@ -9,36 +9,53 @@ public class Order implements Customizable {
 	public Order() {
 		// TODO Auto-generated constructor stub
 		this.lineNumber = 0;
-		this.orderlines = null;
+		this.orderlines = new ArrayList<OrderLine>(5);
 		
 	}
 	
 	public Order(OrderLine orderLine) {
-		this.lineNumber = 0;
+		lineNumber = 0;
 		this.orderlines.add(orderLine);
 	}
 	
-	int getLineNumber() {
-		if(this.lineNumber == 0) {
-			return lineNumber;
-		}
-		this.lineNumber++;
+	static int addLineNumber() {
+		
+		lineNumber++;
 		return lineNumber;
+	}
+	
+	public ArrayList<OrderLine> getOrderLines() {
+		return this.orderlines;
+	}
+	
+	public String toString() {
+		return orderlines.toString();
 	}
 	
 	
 
 	@Override
 	public boolean add(Object obj) {
+		if (!(obj instanceof OrderLine)) {
+			return false;
+		}
+		OrderLine orderLine = (OrderLine) obj;
+		//orderLine.setLineNumber(addLineNumber());
+		this.getOrderLines().add(orderLine);
+		//addLineNumber();
 		// TODO Auto-generated method stub
-		
-		
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean remove(Object obj) {
+		if (!(obj instanceof OrderLine)) {
+			return false;
+		}
+		OrderLine orderLine = (OrderLine) obj;
 		// TODO Auto-generated method stub
+		this.getOrderLines().remove(orderLine);
+
 		return false;
 	}
 
