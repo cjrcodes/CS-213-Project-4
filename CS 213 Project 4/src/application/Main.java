@@ -6,7 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
-
+/**
+ * Main, executes the program and displays the initial JavaFX scene.
+ * @author Christian Rodriguez,  Yazhini Shanmugam
+ *
+ */
 
 public class Main extends Application {
 	public static Stage parentWindow;

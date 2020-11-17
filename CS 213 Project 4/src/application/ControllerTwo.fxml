@@ -37,7 +37,7 @@
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToMainScene" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Order Total $" translateX="90.0" GridPane.columnIndex="2" />
             <TextField fx:id="orderTotalTextField" editable="false" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="3" />
-            <Button fx:id="saveOrderToFileButton" mnemonicParsing="false" text="Save Order To File" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="saveOrderToFileButton" mnemonicParsing="false" onAction="#saveOrderToFile" text="Save Order To File" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </bottom>

@@ -2,6 +2,12 @@ package application;
 
 import java.util.ArrayList;
 
+/**
+ * Order, Holds order lines for all added sandwiches and keeps track of line numbers
+ * @author Christian Rodriguez,  Yazhini Shanmugam
+ *
+ */
+
 public class Order implements Customizable {
 	public static int lineNumber; //reset for each new order;
 	private ArrayList<OrderLine> orderlines;
@@ -56,7 +62,7 @@ public class Order implements Customizable {
 		// TODO Auto-generated method stub
 		this.getOrderLines().remove(orderLine);
 
-		return false;
+		return true;
 	}
 
 }

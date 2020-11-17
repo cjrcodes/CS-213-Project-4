@@ -42,6 +42,11 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * SecondController, The second controller for duplicating/removing order lines and functions for the second scene.
+ * @author Christian Rodriguez,  Yazhini Shanmugam
+ *
+ */
 public class SecondController {
 	
 	
@@ -69,15 +74,24 @@ public class SecondController {
 	@FXML
 	Button saveOrderToFileButton;
 	
+	/**
+	 * Initializes properties of the second scene
+	 */
 	@FXML
 	void initialize() {
 		//System.out.println("Second controller reached");
 		//System.out.println(MainController.order.toString());
 
-		orderLinesToList();
-		orderTotalTextField.setText(getTotalPrice());
+		try {
+			orderLinesToList();
+			orderTotalTextField.setText(getTotalPrice());
 
-		orderListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			orderListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		}
+		
+		catch(Exception e) {
+			return;
+		}
 	}
 
 	/*public void setView1Controller(MainController mainController) {
@@ -87,6 +101,10 @@ public class SecondController {
 		
 	}*/
 	
+	/**
+	 * Duplicates order to be added again
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void addSameOrder(ActionEvent actionEvent) {
 	try {			//System.out.println("addSameOrder reached");
@@ -126,6 +144,11 @@ public class SecondController {
 	}
 	}
 	
+	
+	/**
+	 * Gets the total price to display
+	 * 
+	 */
 	public String getTotalPrice() {
 		try {
 			if(MainController.order == null) {
@@ -151,7 +174,10 @@ public class SecondController {
 	
 		
 	
-	
+	/**
+	 * Sets order lines to list view
+	 * 
+	 */
 	public void orderLinesToList() {
 		/*Order o = new Order();
 		Chicken c = new Chicken();
@@ -196,6 +222,11 @@ public class SecondController {
         
     }*/
 	
+	
+	/**
+	 * Transfers control back to main scene to add orders
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	public void backToMainScene(ActionEvent actionEvent) {
 		try {
@@ -225,6 +256,11 @@ public class SecondController {
 		return;
 	}
 	}
+	
+	/**
+	 * Removes order lines
+	 * @param actionEvent Action Event for the button
+	 */
 	
 	@FXML
 	public void removeOrderLine(ActionEvent actionEvent) {
@@ -278,12 +314,70 @@ public class SecondController {
 	}
 	}
 	
+	/**
+	 * Clears all order lines
+	 * @param actionEvent Action Event for the button
+	 */
+	
 	@FXML
 	void clearOrder(ActionEvent actionEvent) {
 		MainController.order = null;
 		orderLinesToList();
 		orderTotalTextField.setText(getTotalPrice());
 
+	}
+	
+	
+	/**
+	 * Saves order details to external text file
+	 * @param actionEvent Action Event for the button
+	 */
+	@FXML
+	void saveOrderToFile(ActionEvent actionEvent) {
+		try {
+
+			String text = "";
+			ArrayList<OrderLine> orderLines = MainController.order.getOrderLines();
+			for (int i = 0; i < orderLines.size(); i++) {
+				text += orderLines.get(i).toString() + "\n";
+			}
+			
+			text += "Order Total: $" + getTotalPrice() + "\n";
+
+			FileChooser fileChooser = new FileChooser();
+			Stage stage = new Stage();
+
+			// Set extension filter for text files
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+			fileChooser.getExtensionFilters().add(extFilter);
+
+			// Show save file dialog
+			File file = fileChooser.showSaveDialog(stage);
+
+			if (file != null) {
+				saveTextToFile(text, file);
+			}
+		}
+
+		catch (Exception e) {
+			return;
+		}
+	}
+
+	/**
+	 *  Save the text of accounts to a file to export
+	 *  @param text String text to add to file
+	 *  @param file File to be saved to
+	 */
+	public void saveTextToFile(String text, File file) {
+		try {
+			PrintWriter writer;
+			writer = new PrintWriter(file);
+			writer.println(text);
+			writer.close();
+		} catch (Exception e) {
+			return;
+		}
 	}
 	
 	

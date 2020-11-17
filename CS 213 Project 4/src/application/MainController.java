@@ -2,6 +2,11 @@ package application;
 
 //import com.sun.tools.javac.util.StringUtils;
 
+/**
+ * MainController, The primary controller for adding orders and functions for the primary scene.
+ * @author Christian Rodriguez,  Yazhini Shanmugam
+ *
+ */
 import java.io.BufferedReader;
 
 import java.io.File;
@@ -42,7 +47,11 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Node;
-
+/**
+ * MainController, primary controller for the program
+ * @author Christian Rodriguez,  Yazhini Shanmugam
+ *
+ */
 public class MainController {
 	
 	static Double price;
@@ -88,32 +97,38 @@ public class MainController {
 	@FXML
 	private Scene secondScene;
 	
-	/*controller2.setView1Controller(this);
-	controller2.otherMethod();
 	
-	MainController passMainController() {
-		return this;
-	}*/
-	
+	/**
+	 * Initializes properties of the first scene
+	 */
 	@FXML
 	void initialize() {
-		//Image fishImage = new Image("file: Chicken.png");
-		//System.out.println("Main controller running");
-		String [] chickenIngredients = {"Fried Chicken", "Spicy Sauce", "Pickles"};
-		ingredientsToListView(chickenIngredients);
-		price = 8.99;
-		numOfIngredientsSelected = 0;
-		if(order == null) {
-			order = new Order();
+		try {
+			//Image fishImage = new Image("file: Chicken.png");
+			//System.out.println("Main controller running");
+			String [] chickenIngredients = {"Fried Chicken", "Spicy Sauce", "Pickles"};
+			ingredientsToListView(chickenIngredients);
+			price = 8.99;
+			numOfIngredientsSelected = 0;
+			if(order == null) {
+				order = new Order();
 
+			}
+			setSandwichPrice();
+			extraIngredientsToListView();
+			extraIngredientsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			selectedIngredientsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		}
-		setSandwichPrice();
-		extraIngredientsToListView();
-		extraIngredientsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		selectedIngredientsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
+	
+		catch (Exception e) {
+			messageTextArea.appendText("Error occurred initializing\n");
+			return;
+		}
 	}
 	
+	/**
+	 * Lists extra ingredients to list view
+	 */
 	void extraIngredientsToListView() {
 		try {
 			extraIngredientsList.getItems().clear();
@@ -133,6 +148,10 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Transfers control to second scene to show order details
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void showOrder(ActionEvent actionEvent) {
 		try {
@@ -164,6 +183,10 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Adds selected ingredients to the selected list view
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void addSelectedIngredientToListView(ActionEvent actionEvent) {
 		
@@ -220,7 +243,10 @@ public class MainController {
 		}
 		
 	}
-	
+	/**
+	 * Removes selected ingredients from the selected list view
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void removeSelectedIngredientToListView(ActionEvent actionEvent) {
 		
@@ -265,6 +291,10 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Clears all selected ingredients to the selected list view
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void clearSelectedIngredientToListView(ActionEvent actionEvent) {
 		
@@ -309,15 +339,30 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Adds selected ingredients to the selected list view
+	 * @param ingredientsAction String array of the ingredients to list view
+	 */
 	void ingredientsToListView(String [] ingredients) {
-		ingredientsList.getItems().clear();
 		
-		for(int i = 0 ; i < ingredients.length; i++) {
-			ingredientsList.getItems().add(ingredients[i]);
+		try {
+			ingredientsList.getItems().clear();
+			
+			for(int i = 0 ; i < ingredients.length; i++) {
+				ingredientsList.getItems().add(ingredients[i]);
+			}
 		}
-		
+	
+		catch (Exception e) {
+			messageTextArea.appendText("Error occurred listing ingredients\n");
+			return;
+		}
 	}
 	
+	/**
+	 * Checks selected sandwich to set on UI
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void sandwichSelected(ActionEvent actionEvent) {
 		
@@ -359,6 +404,10 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Sets sandwich image based on selected sandwich
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void setSandwichImage(ActionEvent actionEvent) {
 		
@@ -396,6 +445,11 @@ public class MainController {
 		
 	}
 	
+	
+	/**
+	 * Adds selected ingredients to the selected list view
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void addToOrder(ActionEvent actionEvent) {
 		
@@ -454,7 +508,10 @@ public class MainController {
 
 		
 	}
-	
+	/**
+	 * Sets sandwich price in the textfield
+	 * 
+	 */
 	void setSandwichPrice() {
 		try {
 			String selected = (String) sandwichCombo.getSelectionModel().getSelectedItem();
@@ -484,6 +541,10 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Updates the sandwich price after add or removing ingredients
+	 * @param isAdding Boolean that states whether an ingredient is being added.
+	 */
 	void updateSandwichPrice(Boolean isAdding) {
 		
 		try {
@@ -506,20 +567,46 @@ public class MainController {
 		}
 		
 	}
-
+	/**
+	 * Sets second scence
+	 * @param scene Scene to be set
+	 */
 	public void setSecondScene(Scene scene) {
 		// TODO Auto-generated method stub
-        secondScene = scene;
-
 		
+		try {
+	        secondScene = scene;
+
+		}
+
+		catch (Exception e) {
+			messageTextArea.appendText("Error occurred setting second scene\n");
+
+			return;
+		}
 	}
 	
+	
+	/**
+	 * Opens second scene
+	 * @param actionEvent Action Event for the button
+	 */
 	@FXML
 	void openSecondScene(ActionEvent actionEvent) {
-        Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene s = secondScene;
-        primaryStage.setScene(s);
-        primaryStage.show();
+		
+		try {
+			 Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+		        Scene s = secondScene;
+		        primaryStage.setScene(s);
+		        primaryStage.show();
+		}
+       
+        
+        catch (Exception e) {
+			messageTextArea.appendText("Error occurred opening second scene\n");
+
+			return;
+		}
     }
 	
 }
