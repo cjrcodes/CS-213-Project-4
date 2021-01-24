@@ -4,6 +4,7 @@ Sandwich ordering system. Includes 3 basic types and the ability to add extra in
 
 
 ![1st menu](https://github.com/cjrcodes/Sandwich-Ordering-System/blob/master/CS%20213%20Project%204/images/1stmenu.png)
+![2nd menu](https://github.com/cjrcodes/Sandwich-Ordering-System/blob/master/CS%20213%20Project%204/images/2ndmenu.png)
 
 
 Features:
