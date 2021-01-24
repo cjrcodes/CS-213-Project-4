@@ -3,7 +3,7 @@
 Sandwich ordering system. Includes 3 basic types and the ability to add extra ingredients sandwiches.
 
 
-![XCOM Mod File Generator Logo](https://github.com/cjrcodes/Sandwich-Ordering-System/blob/master/CS%20213%20Project%204/images/1stmenu.png)
+![1st menu](https://github.com/cjrcodes/Sandwich-Ordering-System/blob/master/CS%20213%20Project%204/images/1stmenu.png)
 
 
 Features:
