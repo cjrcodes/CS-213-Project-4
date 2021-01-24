@@ -2,6 +2,8 @@
 
 Sandwich ordering system. Includes 3 basic types and the ability to add extra ingredients sandwiches.
 
+![alt text](https://github.com/cjrcodes/Sandwich-Ordering-System/tree/master/CS%20213%20Project%204/images/1stmenu.png)
+
 Features:
 - Different sandwich types
 - Ability to add extra ingredients
