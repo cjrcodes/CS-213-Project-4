@@ -16,3 +16,4 @@ Features:
 Technologies:
 - Java
 - JavaFX
+- JUnit
